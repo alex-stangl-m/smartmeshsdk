@@ -19,9 +19,9 @@ from SmartMeshSDK.utils import SmsdkInstallVerifier
     ]
 )
 if not goodToGo:
-    print "Your installation does not allow this application to run:\n"
-    print reason
-    raw_input("Press any button to exit")
+    print("Your installation does not allow this application to run:\n")
+    print(reason)
+    input("Press any button to exit")
     sys.exit(1)
 
 #============================ imports =========================================
@@ -110,7 +110,7 @@ def logCrash(err):
     output += ["=== traceback ==="]
     output += [traceback.format_exc()]
     output  = '\n'.join(output)
-    print output
+    print(output)
     with open(DEFAULT_CRASHLOG,'a') as f:
         f.write(output)
 

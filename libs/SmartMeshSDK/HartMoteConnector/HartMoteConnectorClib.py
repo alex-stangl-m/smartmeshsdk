@@ -4,7 +4,7 @@ import serial
 import traceback
 import os
 
-import HartMoteConnector as HartMoteConnectorOriginal
+from . import HartMoteConnector as HartMoteConnectorOriginal
 
 #============================ decide whether can run ==========================
 
@@ -336,7 +336,7 @@ class HartMoteConnector(ApiConnector,threading.Thread):
             rawVal = getattr(notif.contents,f)
             if  isinstance(rawVal,int):
                 returnVal[f] = rawVal
-            elif isinstance(rawVal,long):
+            elif isinstance(rawVal,int):
                 returnVal[f] = int(rawVal)
             else:
                 returnVal[f] = [int(b) for b in rawVal]
@@ -440,7 +440,7 @@ class HartMoteConnector(ApiConnector,threading.Thread):
             rawVal = getattr(c_notif.contents,f)
             if  isinstance(rawVal,int):
                 py_notif[f] = rawVal
-            elif isinstance(rawVal,long):
+            elif isinstance(rawVal,int):
                 py_notif[f] = int(rawVal)
             else:
                 py_notif[f] = [int(b) for b in rawVal]

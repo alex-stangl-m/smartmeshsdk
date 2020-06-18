@@ -39,16 +39,16 @@ def process_data(mydata):
     '''
     Processes latency data, prints MAC address and latency of the packet
     '''
-    print(' Latency for mote {0} --> {1}'.format(mydata.mac_address,mydata.latency))
+    print((' Latency for mote {0} --> {1}'.format(mydata.mac_address,mydata.latency)))
     
 #============================ main ============================================
 
 try:
     # print banner
-    print '\nVMgr_LatencyNotifs (c) Dust Networks'
-    print 'SmartMesh SDK {0}\n'.format('.'.join([str(i) for i in sdk_version.VERSION]))
+    print('\nVMgr_LatencyNotifs (c) Dust Networks')
+    print('SmartMesh SDK {0}\n'.format('.'.join([str(i) for i in sdk_version.VERSION])))
 
-    mgrhost = raw_input('Enter the IP address of the manager (e.g. {0}): '.format(DFLT_MGR_HOST))
+    mgrhost = input('Enter the IP address of the manager (e.g. {0}): '.format(DFLT_MGR_HOST))
     if mgrhost == "":
         mgrhost = DFLT_MGR_HOST
 
@@ -68,16 +68,16 @@ try:
 
     # read and display network configuration
     netConfig = voyager.networkApi.get_network_config()
-    print ('Current network configuration is ...\n {0}'.format(netConfig))
+    print(('Current network configuration is ...\n {0}'.format(netConfig)))
 
     # start listening for data notifications
     voyager.get_notifications('data', notif_callback=process_data)
 
-    print '\n==== Subscribing to data notifications'
-    reply = raw_input ('\n Waiting for notifications , Press any key to stop\n')
+    print('\n==== Subscribing to data notifications')
+    reply = input ('\n Waiting for notifications , Press any key to stop\n')
 
     voyager.stop_notifications()
-    print 'Script ended normally'
+    print('Script ended normally')
 
 except:
     traceback.print_exc()

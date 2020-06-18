@@ -15,15 +15,15 @@ class Michael_TestVectors(unittest.TestCase):
     def testIEEE_BaseKnowValues(self):
         """ Test using vectors from IEEE P802.11i/D2.0 """
         def runSingleTest(key,data,micResult):
-            print "============================="
+            print("=============================")
             key = a2b_hex(key)
             knownMICResult = a2b_hex(micResult)
-            print "key:      ",b2a_hex(key)
-            print "data:     ",b2a_hex(data)
-            print "knownMIC: ", b2a_hex(knownMICResult)
+            print("key:      ",b2a_hex(key))
+            print("data:     ",b2a_hex(data))
+            print("knownMIC: ", b2a_hex(knownMICResult))
             micAlg = Michael(key)
             calculatedMIC = micAlg.hash(data)
-            print "CalcMIC:  ", b2a_hex(calculatedMIC)
+            print("CalcMIC:  ", b2a_hex(calculatedMIC))
             self.assertEqual( calculatedMIC, knownMICResult )
 
             # alternate calling sequence

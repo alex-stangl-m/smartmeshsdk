@@ -26,22 +26,22 @@ class CCM_AES128_TestVectors(unittest.TestCase):
         """ Test using vectors from..."""
         def CCMtestVector(testCase,macSize,key,nonce,addAuth,pt,kct):
             """ CCM test vectors using AES algorithm """
-            print '%s %s %s'%('='*((54-len(testCase))/2),testCase,'='*((54-len(testCase))/2))
+            print('%s %s %s'%('='*((54-len(testCase))/2),testCase,'='*((54-len(testCase))/2)))
             key,nonce,pt,addAuth,kct = a2b_p(key),a2b_p(nonce),a2b_p(pt),a2b_p(addAuth),a2b_p(kct)
 
             alg = CCM(AES(key,keySize=len(key)),macSize=macSize, nonceSize=len(nonce))
 
-            print 'alg=%s%skeySize=%3d   blockSize=%3d   M=%2d    L=%2d'%(alg.baseCipher.name,
+            print('alg=%s%skeySize=%3d   blockSize=%3d   M=%2d    L=%2d'%(alg.baseCipher.name,
                               ' '*(10-len(alg.baseCipher.name)),
-                              alg.keySize, alg.blockSize, alg.M, alg.L)
-            print 'key:    %s'%b2a_p(key)[9:]
-            print 'nonce:  %s'%b2a_p(nonce)[9:]
-            print 'addAuth:%s'%b2a_p(addAuth)[9:]
-            print 'pt:     %s'%b2a_p(pt)[9:]
+                              alg.keySize, alg.blockSize, alg.M, alg.L))
+            print('key:    %s'%b2a_p(key)[9:])
+            print('nonce:  %s'%b2a_p(nonce)[9:])
+            print('addAuth:%s'%b2a_p(addAuth)[9:])
+            print('pt:     %s'%b2a_p(pt)[9:])
             ct  = alg.encrypt(pt,nonce=nonce,addAuthData=addAuth)
-            print 'ct:     %s'%b2a_p(ct)[9:]
-            print 'kct:    %s'%b2a_p(kct)[9:]
-            print '========================================================'
+            print('ct:     %s'%b2a_p(ct)[9:])
+            print('kct:    %s'%b2a_p(kct)[9:])
+            print('========================================================')
             self.assertEqual( ct, kct )
             dct = alg.decrypt(ct,nonce=nonce,addAuthData=addAuth)
             self.assertEqual( dct, pt )

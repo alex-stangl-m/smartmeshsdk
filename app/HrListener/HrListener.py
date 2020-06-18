@@ -19,9 +19,9 @@ from SmartMeshSDK.utils import SmsdkInstallVerifier
     ]
 )
 if not goodToGo:
-    print "Your installation does not allow this application to run:\n"
-    print reason
-    raw_input("Press any button to exit")
+    print("Your installation does not allow this application to run:\n")
+    print(reason)
+    input("Press any button to exit")
     sys.exit(1)
 
 #============================ imports =========================================
@@ -187,8 +187,8 @@ class notifClient(object):
                     row[4] += 1
         
         except Exception as err:
-            print type(err)
-            print err
+            print(type(err))
+            print(err)
             raise
 
 class hrListenerGui(object):

@@ -1,4 +1,7 @@
 SmartMeshSDK
+
+Experimenting with Python 3 compatibility
+
 ============
 
 Python SmartMesh SDK

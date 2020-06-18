@@ -1,4 +1,4 @@
-from __future__ import absolute_import
+
 import logging
 
 vmanager_log = logging.getLogger('vmanager')
