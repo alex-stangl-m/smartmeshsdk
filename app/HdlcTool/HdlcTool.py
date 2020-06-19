@@ -18,9 +18,9 @@ from SmartMeshSDK.utils import SmsdkInstallVerifier
     ]
 )
 if not goodToGo:
-    print "Your installation does not allow this application to run:\n"
-    print reason
-    raw_input("Press any button to exit")
+    print("Your installation does not allow this application to run:\n")
+    print(reason)
+    input("Press any button to exit")
     sys.exit(1)
 
 #============================ imports =========================================
@@ -95,10 +95,10 @@ class HdlcConverter(Hdlc.Hdlc):
     def read(self,numBytes):
         if len(self.rxBytes):
             byteRead = self.rxBytes.pop(0)
-            print 'HdlcConverter.read {0:x}'.format(byteRead)
+            print('HdlcConverter.read {0:x}'.format(byteRead))
             return chr(byteRead)
         else:
-            print 'HdlcConverter.read blocked'
+            print('HdlcConverter.read blocked')
             if self.toHdlcMode:
                 self.rxDoneLock.acquire() # block
             else:
@@ -107,7 +107,7 @@ class HdlcConverter(Hdlc.Hdlc):
     
     def write(self,stringToWrite):
         self.hdlcBytes = [ord(b) for b in stringToWrite]
-        print 'HdlcConverter.write {0}'.format(FormatUtils.formatBuffer(self.hdlcBytes))
+        print('HdlcConverter.write {0}'.format(FormatUtils.formatBuffer(self.hdlcBytes)))
         self.doneSem.release()
         return len(stringToWrite)
     
@@ -136,7 +136,7 @@ class HdlcConverter(Hdlc.Hdlc):
         self.doneSem.release()
     
     def _connectcallback(self,state):
-        print 'HdlcConverter._connectcallback state={0}'.format(state)
+        print('HdlcConverter._connectcallback state={0}'.format(state))
 
 class hdlcToolGui(object):
     
@@ -188,7 +188,7 @@ class hdlcToolGui(object):
         try:
             input = self._toByteList(textEntered)
         except Exception as err:
-            print err # TODO poipoi print in status bar
+            print(err) # TODO poipoi print in status bar
             return
         
         # convert to HDLC
@@ -203,7 +203,7 @@ class hdlcToolGui(object):
         try:
             input = self._toByteList(textEntered)
         except Exception as err:
-            print err # TODO poipoi print in status bar
+            print(err) # TODO poipoi print in status bar
             return
         
         # convert from HDLC

@@ -17,12 +17,12 @@ class PBDKDF22_KnowAnswerTests(unittest.TestCase):
         """ Know Answer Tests from IEEE """
         knownAnswer = a2b_p(ka) # convert ascii 2 binary
         derivedKey = pbkdf2(password, salt, iterations, keySize)
-        print "========== %s ==========" % testDescription
-        print 'password    = "%s"' % password
-        print "salt/ssid   = %s" % b2a_pter(salt, frnt='              ')[15:]
-        print "iterations  =", iterations
-        print "keySize     =", keySize
-        print "derivedKey  =", b2a_p(derivedKey, frnt='              ')[15:]
+        print("========== %s ==========" % testDescription)
+        print('password    = "%s"' % password)
+        print("salt/ssid   = %s" % b2a_pter(salt, frnt='              ')[15:])
+        print("iterations  =", iterations)
+        print("keySize     =", keySize)
+        print("derivedKey  =", b2a_p(derivedKey, frnt='              ')[15:])
         #print "knownAnswer =", b2a_p(knownAnswer, frnt='              ')[15:]
         self.assertEqual(derivedKey, knownAnswer), "KAT Failed-> %s "% testDescription
 

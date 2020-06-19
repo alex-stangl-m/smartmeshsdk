@@ -80,14 +80,14 @@ class HMAC_RFC2104_TestCases(unittest.TestCase):
         hmac_sha1.update(data[:3])
         hmac_sha1.update(data[3:])
         cd = hmac_sha1.digest()
-        print b2a_hex(cd)
+        print(b2a_hex(cd))
         assert( cd == digest ), 'RFC2104 test 1 failed, HMAC_SHA1 called with update'
 
         hmac_sha1.reset(data)
         cd1 = hmac_sha1.hash(data)
         cd2 = hmac_sha1.hash(data)
-        print b2a_hex(cd1)
-        print b2a_hex(cd2)
+        print(b2a_hex(cd1))
+        print(b2a_hex(cd2))
         assert( cd1 == cd2 ), 'hash method should default to reseting state'
 
 

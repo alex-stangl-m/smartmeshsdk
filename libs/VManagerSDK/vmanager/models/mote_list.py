@@ -77,10 +77,7 @@ class MoteList(object):
         for attr, _ in iteritems(self.swagger_types):
             value = getattr(self, attr)
             if isinstance(value, list):
-                result[attr] = list(map(
-                    lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    value
-                ))
+                result[attr] = list([x.to_dict() if hasattr(x, "to_dict") else x for x in value])
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
             else:

@@ -1,6 +1,6 @@
 import os
 if os.name=='nt':       # Windows
-   import _winreg as winreg
+   import winreg as winreg
 elif os.name=='posix':  # Linux
    import glob
 
@@ -87,7 +87,7 @@ class SerialScanner(object):
             threads += [self._waitForMgrHello(serialport,isManager,dataLock)]
         for t in threads:
             t.join()
-        return [k for (k,v) in isManager.items() if v==True]
+        return [k for (k,v) in list(isManager.items()) if v==True]
     
     def availableManagerNotifier(self,cb,period=0):
         # start thread which continuously scans for IP Managers
@@ -181,8 +181,8 @@ class SerialScanner(object):
                             return
             except Exception as err:
                 if self.goOn:
-                    print err
+                    print(err)
         def _contains_mrgHello(self,l):
             MSG_HELLO    = [126,0,3,0,2,4,0,155,56,126]
             len_mrgHello = len(MSG_HELLO)
-            return any(l[i:len_mrgHello+i]==MSG_HELLO for i in xrange(len(l) - len_mrgHello+1))
+            return any(l[i:len_mrgHello+i]==MSG_HELLO for i in range(len(l) - len_mrgHello+1))

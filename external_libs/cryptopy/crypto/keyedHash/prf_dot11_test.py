@@ -20,12 +20,12 @@ class prf_TestVectors(unittest.TestCase):
 			lengthInBits=8*len(prf_value)
 			a_prf = PRF(key,prefix,data,lengthInBits)
 
-			print 'key	 = ', b2a_p(key)
-			print 'prefix = ', '"'+prefix+'"'
-			print 'data   = ', b2a_p(data)
-			print 'PRF	  = ', b2a_p(a_prf)
-			print 'PRF_v  = ', b2a_p(prf_value)
-			print 'len prf= ', len(a_prf)* 8
+			print('key	 = ', b2a_p(key))
+			print('prefix = ', '"'+prefix+'"')
+			print('data   = ', b2a_p(data))
+			print('PRF	  = ', b2a_p(a_prf))
+			print('PRF_v  = ', b2a_p(prf_value))
+			print('len prf= ', len(a_prf)* 8)
 			self.assertEqual(a_prf, prf_value)
 
 """ -------------- (key, data, digest, prf_value) ------------------ """

@@ -20,17 +20,17 @@ class Icedoll_Basic_Tests(unittest.TestCase):
         alg = Icedoll( 16*chr(0), padding=noPadding())
         pt  = 16*4*'a'             # block aligned
         ct  = alg.encrypt(pt)
-        print 'ct  = ',b2a_p(ct)
+        print('ct  = ',b2a_p(ct))
         dct = alg.decrypt(ct)
-        print 'dct = ',b2a_p(dct)
+        print('dct = ',b2a_p(dct))
         assert(pt == dct), 'pt != dct'
 
         alg = Icedoll( 16*chr(0))  # autoPad
         pt  = 17*4*'a'             # non-block aligned
         ct  = alg.encrypt(pt)
-        print 'ct  = ',b2a_p(ct)
+        print('ct  = ',b2a_p(ct))
         dct = alg.decrypt(ct)
-        print 'dct = ',b2a_p(dct)
+        print('dct = ',b2a_p(dct))
         assert(pt == dct), 'pt != dct'
 
     def testEncrcptDecryptMultiSizesPt(self):

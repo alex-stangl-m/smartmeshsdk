@@ -19,7 +19,7 @@ class TKIP_encr_TestVectors(unittest.TestCase):
 
 	def checkTKIPtestVector(self, description, key, ta, iv, plainText, cipherText):
 		""" Process TKIP encryption test vectors (no MIC) """
-		print '%s %s %s'%('='*((54-len(description))/2),description,'='*((54-len(description))/2))
+		print('%s %s %s'%('='*((54-len(description))/2),description,'='*((54-len(description))/2)))
 		# Convert from octet lists to string
 		key = a2b_p(key)
 		ta	= a2b_p(ta)
@@ -32,20 +32,20 @@ class TKIP_encr_TestVectors(unittest.TestCase):
 		alg = TKIP_encr(key)
 		alg.setTA(ta)
 
-		print 'key:    %s'%b2a_p(key)[9:]
-		print 'rc4Key  %s'%b2a_p(rc4key)[9:]  # calculated
-		print 'ta:	%s'%b2a_p(ta)[9:]
-		print 'iv:	%s'%b2a_p(iv)[9:]
-		print 'pt:	%s'%b2a_p(pt)[9:]
-		print 'kct:    %s'%b2a_p(kct)[9:]
+		print('key:    %s'%b2a_p(key)[9:])
+		print('rc4Key  %s'%b2a_p(rc4key)[9:])  # calculated
+		print('ta:	%s'%b2a_p(ta)[9:])
+		print('iv:	%s'%b2a_p(iv)[9:])
+		print('pt:	%s'%b2a_p(pt)[9:])
+		print('kct:    %s'%b2a_p(kct)[9:])
 
 		ct	= alg.encrypt(pt, iv)
-		print 'ct:	%s'%b2a_p(ct)[9:]
+		print('ct:	%s'%b2a_p(ct)[9:])
 
 		cpt = alg.decrypt(kct)
-		print 'cpt:    %s'%b2a_p(cpt)[9:]
+		print('cpt:    %s'%b2a_p(cpt)[9:])
 
-		print '========================================================'
+		print('========================================================')
 		self.assertEqual( ct, kct )
 		alg.setKey(key)
 		dct = alg.decrypt( ct )

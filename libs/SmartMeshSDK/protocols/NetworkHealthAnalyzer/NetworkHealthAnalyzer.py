@@ -80,7 +80,7 @@ class NetworkHealthAnalyzer(object):
         # counter network-wide number of packets generated/failed
         numTxOk              = 0
         numTxFail            = 0
-        for (mac,moteinfo) in data['moteinfo'].items():
+        for (mac,moteinfo) in list(data['moteinfo'].items()):
             if (('numTxOk' in moteinfo) and ('numTxFail' in moteinfo)):
                 numTxOk     += moteinfo['numTxOk']
                 numTxFail   += moteinfo['numTxFail']
@@ -151,7 +151,7 @@ class NetworkHealthAnalyzer(object):
         # counter network-wide number of packets generated/lost
         numPktsGenerated     = 0
         numPktsLost          = 0
-        for (mac,moteinfo) in data['moteinfo'].items():
+        for (mac,moteinfo) in list(data['moteinfo'].items()):
             if ('packetsReceived' in moteinfo):
                 numPktsGenerated += moteinfo['packetsReceived']
             if ('packetsLost' in moteinfo):
@@ -226,7 +226,7 @@ class NetworkHealthAnalyzer(object):
         motesExactlyOnce     = []
         motesNotExactlyOnce  = []
         motesNotRun          = []
-        for (mac,moteinfo) in data['moteinfo'].items():
+        for (mac,moteinfo) in list(data['moteinfo'].items()):
             
             if ('numOperationalEvents' in moteinfo):
                 if moteinfo['numOperationalEvents']==1:
@@ -306,7 +306,7 @@ class NetworkHealthAnalyzer(object):
         
         # get all the paths in the network
         
-        for (mac,moteinfo) in data['moteinfo'].items():
+        for (mac,moteinfo) in list(data['moteinfo'].items()):
             
             (numTx,numRx)    = self._countTxRxLinks(data['networkpaths'],mac)
             
@@ -375,7 +375,7 @@ class NetworkHealthAnalyzer(object):
         numTx           = 0
         numRx           = 0
         
-        for ((fromMote,toMote),pathInfo) in paths.items():
+        for ((fromMote,toMote),pathInfo) in list(paths.items()):
             
             if mac!=fromMote and mac!=toMote:
                 continue
@@ -409,13 +409,13 @@ class NetworkHealthAnalyzer(object):
         descFAIL             = []
         descNOTRUN           = []
         
-        for (mac,moteinfo) in data['moteinfo'].items():
+        for (mac,moteinfo) in list(data['moteinfo'].items()):
             
             if 'numGoodNbrs' not in moteinfo:
                 descNOTRUN += [
                     'This test could not run because mote {0} did not report any numGoodNbrs counter (the counters it did report are {1}).'.format(
                         FormatUtils.formatMacString(mac),
-                        moteinfo.keys()
+                        list(moteinfo.keys())
                     )
                 ]
             elif moteinfo['numGoodNbrs']<self.MIN_NUMGOODNEIGHBORS:
@@ -484,7 +484,7 @@ class NetworkHealthAnalyzer(object):
         descFAIL             = []
         descNOTRUN           = []
         
-        for (mac,moteinfo) in data['moteinfo'].items():
+        for (mac,moteinfo) in list(data['moteinfo'].items()):
             
             #==== filter edge cases where the test can not be run
             
@@ -496,7 +496,7 @@ class NetworkHealthAnalyzer(object):
                 descNOTRUN += [
                     'This test could not run because mote {0} did not report any numTxOk counter (the counters it did report are {1}).'.format(
                         FormatUtils.formatMacString(mac),
-                        moteinfo.keys()
+                        list(moteinfo.keys())
                     )
                 ]
                 continue
@@ -505,7 +505,7 @@ class NetworkHealthAnalyzer(object):
                 descNOTRUN += [
                     'This test could not run because mote {0} did not report any numTxFail counter (the counters it did report are {1}).'.format(
                         FormatUtils.formatMacString(mac),
-                        moteinfo.keys()
+                        list(moteinfo.keys())
                     )
                 ]
                 continue
@@ -588,14 +588,14 @@ class NetworkHealthAnalyzer(object):
         singleParentMotes    = []
         
         # count number of parents for each mote
-        for mac in data['moteinfo'].keys():
+        for mac in list(data['moteinfo'].keys()):
             numParents[mac] = 0
-            for ((fromMote,toMote),pathInfo) in data['networkpaths'].items():
+            for ((fromMote,toMote),pathInfo) in list(data['networkpaths'].items()):
                 if fromMote==mac and pathInfo['direction']==2 and pathInfo['numLinks']>0:
                     numParents[mac] += 1
         
         # count number of single-parents motes
-        for (mac,n) in numParents.items():
+        for (mac,n) in list(numParents.items()):
             if n==1:
                 singleParentMotes      = [mac]
         
@@ -676,7 +676,7 @@ class NetworkHealthAnalyzer(object):
         descFAIL             = []
         descNOTRUN           = []
         
-        for ((fromMote,toMote),pathInfo) in data['networkpaths'].items():
+        for ((fromMote,toMote),pathInfo) in list(data['networkpaths'].items()):
             
             # make sure path information contains all the counters
             if ('rssi' not in pathInfo) or ('numTxPackets' not in pathInfo) or ('numTxFailures' not in pathInfo):

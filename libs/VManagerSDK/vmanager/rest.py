@@ -18,7 +18,7 @@ Copyright 2015 SmartBear Software
 Credit: this file (rest.py) is modified based on rest.py in Dropbox Python SDK:
 https://www.dropbox.com/developers/core/sdks/python
 """
-from __future__ import absolute_import
+
 
 import sys
 import io
@@ -42,7 +42,7 @@ try:
     from urllib.parse import urlencode
 except ImportError:
     # for python2
-    from urllib import urlencode
+    from urllib.parse import urlencode
 
 
 logger = logging.getLogger(__name__)
@@ -54,7 +54,7 @@ class RESTResponse(io.IOBase):
         self.urllib3_response = resp
         self.status = resp.status
         self.reason = resp.reason
-        if not stream or resp.status not in range(200, 206):
+        if not stream or resp.status not in list(range(200, 206)):
             self.data = resp.data
 
     def getheaders(self):
@@ -177,7 +177,7 @@ class RESTClientObject(object):
 
         r = RESTResponse(r, stream=stream)
         if stream:
-            if r.status not in range(200, 206):
+            if r.status not in list(range(200, 206)):
                 raise ApiException(http_resp=r)
             return r
 
@@ -189,7 +189,7 @@ class RESTClientObject(object):
         # log response body
         logger.debug("response body: %s" % r.data)
 
-        if r.status not in range(200, 206):
+        if r.status not in list(range(200, 206)):
             raise ApiException(http_resp=r)
 
         return r
