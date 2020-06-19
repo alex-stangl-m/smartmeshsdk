@@ -19,9 +19,9 @@ from SmartMeshSDK.utils import SmsdkInstallVerifier
     ]
 )
 if not goodToGo:
-    print("Your installation does not allow this application to run:\n")
-    print(reason)
-    input("Press any button to exit")
+    print "Your installation does not allow this application to run:\n"
+    print reason
+    raw_input("Press any button to exit")
     sys.exit(1)
 
 #============================ imports =========================================
@@ -295,7 +295,7 @@ class MoteClient(threading.Thread):
                 else:
                     raise RuntimeError("unexpected FSM state="+self.states.getNameActiveState())
             except ConnectionError as err:
-                print(err)
+                print err
                 self.textFrame.write(str(err))
                 log.error(err)
                 self.disconnect()
@@ -554,7 +554,7 @@ class MoteClient(threading.Thread):
     def _publishErrorText(self,errorText):
         
         # print error text to console
-        print(errorText)
+        print errorText
         
         # print exception stack
         traceback.print_exc()

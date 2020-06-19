@@ -19,15 +19,15 @@ from SmartMeshSDK.utils import SmsdkInstallVerifier
     ]
 )
 if not goodToGo:
-    print("Your installation does not allow this application to run:\n")
-    print(reason)
-    input("Press any button to exit")
+    print "Your installation does not allow this application to run:\n"
+    print reason
+    raw_input("Press any button to exit")
     sys.exit(1)
 
 #============================ imports =========================================
 
 import threading
-import queue
+import Queue
 import datetime
 import copy
 import webbrowser
@@ -108,7 +108,7 @@ class xivelyConnectorThread(threading.Thread):
         self._init = True
         
         # variables
-        self.queue      = queue.Queue(maxsize=MAX_QUEUE_SIZE)
+        self.queue      = Queue.Queue(maxsize=MAX_QUEUE_SIZE)
         self.publisher  = None
         
         # initialize parent class
@@ -125,8 +125,8 @@ class xivelyConnectorThread(threading.Thread):
     def publish(self,mac,datastream,value):
         try:
             self.queue.put_nowait((mac,datastream,value))
-        except queue.Full:
-            print("Queue is full")
+        except Queue.Full:
+            print "Queue is full"
     
     def getProductId(self):
         returnVal = None
@@ -198,7 +198,7 @@ class xivelyConnectorThread(threading.Thread):
                 output      += ['']
                 output       = '\n'.join(output)
                 log.error(output)
-                print(output)
+                print output
                 
             else:
                 AppData().incrementMoteCounter(mac,COL_NUMDATAPUBOK)
@@ -442,7 +442,7 @@ class notifClient(object):
                         output   += ['']
                         output    = '\n'.join(output)
                         log.error(output)
-                        print(output)
+                        print output
     
     #===== notifications from Xively
     
@@ -643,7 +643,7 @@ class xivelyGui(object):
         newData = AppData().getMoteData()
         
         # update GUI
-        for (mac,moteData) in list(newData.items()):
+        for (mac,moteData) in newData.items():
             
             if mac not in self.macs:
                 # add the mote
@@ -665,7 +665,7 @@ class xivelyGui(object):
             
             else:
                 # update the mote
-                for columnname,columnval in list(moteData.items()):
+                for columnname,columnval in moteData.items():
                     if columnname in [COL_NUMDATARX,
                                       COL_NUMDATAPUB,
                                       COL_NUMDATAPUBOK]:

@@ -10,12 +10,12 @@ if __name__ == '__main__':
 
 #============================ imports =========================================
 
-import tkinter
+import Tkinter
 import threading
 
-from . import dustGuiLib
-from . import dustFrame
-from   .dustStyle import dustStyle
+import dustGuiLib
+import dustFrame
+from   dustStyle import dustStyle
 
 #============================ body ============================================
 
@@ -39,10 +39,10 @@ class dustFrameProgress(dustFrame.dustFrame):
         
         # text field with yscrollbar 
         
-        yscrollbar  = tkinter.Scrollbar(self.container)
-        yscrollbar.grid(row=0, column=1, sticky=tkinter.N+tkinter.S)
+        yscrollbar  = Tkinter.Scrollbar(self.container)
+        yscrollbar.grid(row=0, column=1, sticky=Tkinter.N+Tkinter.S)
         
-        self.textField = tkinter.Text(
+        self.textField = Tkinter.Text(
             self.container,
             font             = dustStyle.FONT_BODY,
             bg               = dustStyle.COLOR_BG,
@@ -69,7 +69,7 @@ class dustFrameProgress(dustFrame.dustFrame):
             elem   = temp,
             row    = 1,
             column = 0,
-            sticky = tkinter.E,
+            sticky = Tkinter.E,
         )
         
     #======================== public ==========================================
@@ -86,13 +86,13 @@ class dustFrameProgress(dustFrame.dustFrame):
         # write
         if severity:
            self.textField.insert(
-               tkinter.END,
+               Tkinter.END,
                '{0}\n'.format(textToAdd.strip()),
                (severity,)
            )
         else:
            self.textField.insert(
-               tkinter.END,
+               Tkinter.END,
                '{0}\n'.format(textToAdd.strip()),
            )
         
@@ -103,7 +103,7 @@ class dustFrameProgress(dustFrame.dustFrame):
         # enable
         self.textField.configure(state='normal')
         # delete
-        self.textField.delete(1.0,tkinter.END)
+        self.textField.delete(1.0,Tkinter.END)
         # disable
         self.textField.configure(state='disabled')
     
@@ -160,5 +160,5 @@ class exampleApp(object):
 if __name__ == '__main__':
     import time
     import random
-    from .dustWindow import dustWindow
+    from dustWindow import dustWindow
     exampleApp()

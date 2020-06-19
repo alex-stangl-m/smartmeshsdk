@@ -15,7 +15,7 @@ class SHA1_FIPS180_TestCases(unittest.TestCase):
         """ APPENDIX A.  A SAMPLE MESSAGE AND ITS MESSAGE DIGEST """
         hashAlg = SHA1()
         message        = 'abc'
-        message_digest = 0xA9993E36, 0x4706816A, 0xBA3E2571, 0x7850C26C, 0x9CD0D89D
+        message_digest = 0xA9993E36L, 0x4706816AL, 0xBA3E2571L, 0x7850C26CL, 0x9CD0D89DL
         md_string      = _toBString(message_digest)
         assert( hashAlg(message) == md_string ), 'FIPS180 Appendix A test Failed'
 
@@ -23,7 +23,7 @@ class SHA1_FIPS180_TestCases(unittest.TestCase):
         """ APPENDIX B. A SECOND SAMPLE MESSAGE AND ITS MESSAGE DIGEST """
         hashAlg = SHA1()
         message        = 'abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq'
-        message_digest = 0x84983E44, 0x1C3BD26E, 0xBAAE4AA1, 0xF95129E5, 0xE54670F1
+        message_digest = 0x84983E44L, 0x1C3BD26EL, 0xBAAE4AA1L, 0xF95129E5L, 0xE54670F1L
         md_string      = _toBString(message_digest)
         assert( hashAlg(message) == md_string ), 'FIPS180 Appendix B test Failed'
 
@@ -33,7 +33,7 @@ class SHA1_FIPS180_TestCases(unittest.TestCase):
         of 1,000,000 repetitions of "a". """
         hashAlg = SHA1()
         message        = 1000000*'a'
-        message_digest = 0x34AA973C, 0xD4C4DAA4, 0xF61EEB2B, 0xDBAD2731, 0x6534016F
+        message_digest = 0x34AA973CL, 0xD4C4DAA4L, 0xF61EEB2BL, 0xDBAD2731L, 0x6534016FL
         md_string      = _toBString(message_digest)
         assert( hashAlg(message) == md_string ), 'FIPS180 Appendix C test Failed'
 

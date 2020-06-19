@@ -28,18 +28,18 @@ class TKIP_Mixer_Know_Answer_Tests(unittest.TestCase):
             knownP1key  = a2b_p(testCase['P1K'])
             knownRC4Key = a2b_p(testCase['RC4KEY'])
 
-            print('===========================================================')
-            print('testCase:%s'%description)
-            print('TK:      %s'%b2a_p(tk)[9:])
-            print('TA:      %s'%b2a_p(ta)[9:])
-            print('IV32:    %s'%b2a_p(iv32)[9:])
-            print('IV16:    %s'%b2a_p(iv16)[9:])
+            print '==========================================================='
+            print 'testCase:%s'%description
+            print 'TK:      %s'%b2a_p(tk)[9:]
+            print 'TA:      %s'%b2a_p(ta)[9:]
+            print 'IV32:    %s'%b2a_p(iv32)[9:]
+            print 'IV16:    %s'%b2a_p(iv16)[9:]
             keyId = 0
             eh1 = chr((ord(pnField[1])|0x20)&0x7f)
             eh = pnField[0]+eh1+pnField[1]+chr((keyId<<6)|0x20)+pnField[2:]
-            print('EncHdr:  %s    (with KeyId=0)' % b2a_p(eh)[9:])
-            print('PNfield: %s' % b2a_p(pnField)[9:])
-            print('PNvalue: hex 0x%012X   decimal %d' % (pn,pn))
+            print 'EncHdr:  %s    (with KeyId=0)' % b2a_p(eh)[9:]
+            print 'PNfield: %s' % b2a_p(pnField)[9:]
+            print 'PNvalue: hex 0x%012X   decimal %d' % (pn,pn)
             #print 'TSC:    [0x%04x, 0x%04x, 0x%04x]' % (unpack('<H',pnField[0:2])[0],\
             #               unpack('<H',pnField[2:4])[0],unpack('<H',pnField[4:6])[0])
 
@@ -47,16 +47,16 @@ class TKIP_Mixer_Know_Answer_Tests(unittest.TestCase):
             newRC4Key = mixer.newKey(pnField)
 
             p1kstring = ''.join([pack('>H',i) for i in mixer.phase1Key])   # a list of int's
-            print('TTAK:    [0x%04x, 0x%04x, 0x%04x, 0x%04x, 0x%04x]' % (mixer.phase1Key[0], \
-                        mixer.phase1Key[1],mixer.phase1Key[2],mixer.phase1Key[3],mixer.phase1Key[4]))
-            print('P1K:     %s'%b2a_p(p1kstring)[9:])
+            print 'TTAK:    [0x%04x, 0x%04x, 0x%04x, 0x%04x, 0x%04x]' % (mixer.phase1Key[0], \
+                        mixer.phase1Key[1],mixer.phase1Key[2],mixer.phase1Key[3],mixer.phase1Key[4])
+            print 'P1K:     %s'%b2a_p(p1kstring)[9:]
             #print 'knownP1K:%s'%b2a_p(knownP1key)[9:]
             self.assertEqual( p1kstring, knownP1key),'Phase1 Keys dont match'
 
-            print('RC4Key:  %s'% b2a_p(newRC4Key)[9:])
+            print 'RC4Key:  %s'% b2a_p(newRC4Key)[9:]
             #print 'knownRC4Key:     %s'% b2a_p(knownRC4Key)[9:]
             self.assertEqual( newRC4Key, knownRC4Key ),'Final Key does not match'
-            print('===========================================================')
+            print '==========================================================='
 
     def xtestTKIP_Mixer_Sequence(self):
         """ Test TKIP Mixing using alternate calling approaches """
@@ -88,11 +88,11 @@ class TKIP_Mixer_Know_Answer_Tests(unittest.TestCase):
         rc4Key = a2b_p( "E7 67 0C 68 15 E0 2E 3F 1C 15 92 92 D4 E2 78 82" )
         mixer = TKIP_Mixer(tk1,ta)
         newRC4Key = mixer.newKey(iv16+iv32)
-        print("=== Gunnar Example ===")
-        print("rc4Key = ", b2a_p( rc4Key ))
-        print("newRC4Key = ", b2a_p( newRC4Key ))
-        print("knownp1K = ", b2a_p( p1k ))
-        print("calcp1K = %04X %04X %04x %04x %04x" % (mixer.phase1Key[0],mixer.phase1Key[1],mixer.phase1Key[2],mixer.phase1Key[3],mixer.phase1Key[4]))
+        print "=== Gunnar Example ==="
+        print "rc4Key = ", b2a_p( rc4Key )
+        print "newRC4Key = ", b2a_p( newRC4Key )
+        print "knownp1K = ", b2a_p( p1k )
+        print "calcp1K = %04X %04X %04x %04x %04x" % (mixer.phase1Key[0],mixer.phase1Key[1],mixer.phase1Key[2],mixer.phase1Key[3],mixer.phase1Key[4])
         self.assertEqual(rc4Key,newRC4Key)
 
     def xtestTKIP_Mixer_TV_values(self):
@@ -104,30 +104,30 @@ class TKIP_Mixer_Know_Answer_Tests(unittest.TestCase):
             pn          = testCase['PN']
             pnField     = pack('<Q', pn)[:6]
 
-            print('===========================================================')
-            print('testCase:%s'%description)
-            print('TK:      %s'%b2a_p(tk)[9:])
-            print('TA:      %s'%b2a_p(ta)[9:])
+            print '==========================================================='
+            print 'testCase:%s'%description
+            print 'TK:      %s'%b2a_p(tk)[9:]
+            print 'TA:      %s'%b2a_p(ta)[9:]
             keyId = 0
             eh1 = chr((ord(pnField[1])|0x20)&0x7f)
             eh = pnField[0]+eh1+pnField[1]+chr((keyId<<6)|0x20)+pnField[2:]
-            print('EncHdr:  %s    (with KeyId=0)' % b2a_p(eh)[9:])
-            print('PNfield: %s' % b2a_p(pnField)[9:])
-            print('PNvalue: 0x%06X' % pn)
-            print('TSC?:    [0x%04x, 0x%04x, 0x%04x]' % (unpack('<H',pnField[0:2])[0],\
-                           unpack('<H',pnField[2:4])[0],unpack('<H',pnField[4:6])[0]))
+            print 'EncHdr:  %s    (with KeyId=0)' % b2a_p(eh)[9:]
+            print 'PNfield: %s' % b2a_p(pnField)[9:]
+            print 'PNvalue: 0x%06X' % pn
+            print 'TSC?:    [0x%04x, 0x%04x, 0x%04x]' % (unpack('<H',pnField[0:2])[0],\
+                           unpack('<H',pnField[2:4])[0],unpack('<H',pnField[4:6])[0])
 
             mixer = TKIP_Mixer(tk,ta)
             newRC4Key = mixer.newKey(pnField)
             p1kstring = ''.join([pack('>H',i) for i in mixer.phase1Key])   # a list of int's
-            print('TTAK:   [0x%04x, 0x%04x, 0x%04x, 0x%04x, 0x%04x]' % (mixer.phase1Key[0], \
-                        mixer.phase1Key[1],mixer.phase1Key[2],mixer.phase1Key[3],mixer.phase1Key[4]))
-            print('P1K:     %s'%b2a_p(p1kstring)[9:])
+            print 'TTAK:   [0x%04x, 0x%04x, 0x%04x, 0x%04x, 0x%04x]' % (mixer.phase1Key[0], \
+                        mixer.phase1Key[1],mixer.phase1Key[2],mixer.phase1Key[3],mixer.phase1Key[4])
+            print 'P1K:     %s'%b2a_p(p1kstring)[9:]
 
-            print('RC4Key:  %s' % b2a_p( newRC4Key )[9:])
-            print('kRC4Key: %s' % b2a_p( a2b_p(testCase['RC4KEY']))[9:])
+            print 'RC4Key:  %s' % b2a_p( newRC4Key )[9:]
+            print 'kRC4Key: %s' % b2a_p( a2b_p(testCase['RC4KEY']))[9:]
             self.assertEqual(newRC4Key, a2b_p(testCase['RC4KEY']))
-            print('===========================================================')
+            print '==========================================================='
 
 """ TKIP_Mixer Know Answer Tests from IEEE TGi """
 TKIP_MixerTestCases = [

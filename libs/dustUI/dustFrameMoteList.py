@@ -10,19 +10,19 @@ if __name__ == '__main__':
 
 #============================ imports =========================================
 
-import tkinter
+import Tkinter
 
-from . import dustGuiLib
-from . import dustFrame
-from   .dustStyle import dustStyle
+import dustGuiLib
+import dustFrame
+from   dustStyle import dustStyle
 
 #============================ body ============================================
 
-class SetOneValFrame(tkinter.Frame):
+class SetOneValFrame(Tkinter.Frame):
     
     def __init__(self,container,lambda_factory,content,mac,handle_update_set,defaultVal):
         
-        tkinter.Frame.__init__(self,container)
+        Tkinter.Frame.__init__(self,container)
         
         # text
         self.textElem = dustGuiLib.Text(self,width=15,height=1)
@@ -45,23 +45,23 @@ class SetOneValFrame(tkinter.Frame):
         self.setButton.grid(row=0,column=1)
     
     def enable(self):
-        self.textElem.configure(state=tkinter.NORMAL)
-        self.setButton.configure(state=tkinter.NORMAL)
+        self.textElem.configure(state=Tkinter.NORMAL)
+        self.setButton.configure(state=Tkinter.NORMAL)
     
     def update(self,val):
-        self.textElem.delete(1.0, tkinter.END)
+        self.textElem.delete(1.0, Tkinter.END)
         self.textElem.insert(1.0, str(val))
         self.textElem.configure(bg=dustStyle.COLOR_BG)
     
     def disable(self):
-        self.textElem.configure(state=tkinter.DISABLED)
-        self.setButton.configure(state=tkinter.DISABLED)
+        self.textElem.configure(state=Tkinter.DISABLED)
+        self.setButton.configure(state=Tkinter.DISABLED)
 
-class GetSetOneValFrame(tkinter.Frame):
+class GetSetOneValFrame(Tkinter.Frame):
     
     def __init__(self,container,lambda_factory,content,mac,handle_update_set):
         
-        tkinter.Frame.__init__(self,container)
+        Tkinter.Frame.__init__(self,container)
         
         # text
         self.textElem = dustGuiLib.Text(self,width=6,height=1)
@@ -95,26 +95,26 @@ class GetSetOneValFrame(tkinter.Frame):
         self.setButton.grid(row=0,column=2)
     
     def enable(self):
-        self.textElem.configure(state=tkinter.NORMAL)
-        self.getButton.configure(state=tkinter.NORMAL)
-        self.setButton.configure(state=tkinter.NORMAL)
+        self.textElem.configure(state=Tkinter.NORMAL)
+        self.getButton.configure(state=Tkinter.NORMAL)
+        self.setButton.configure(state=Tkinter.NORMAL)
     
     def update(self,val):
-        self.textElem.delete(1.0, tkinter.END)
+        self.textElem.delete(1.0, Tkinter.END)
         self.textElem.insert(1.0, str(val))
         self.textElem.configure(bg=dustStyle.COLOR_BG)
     
     def disable(self):
-        self.textElem.configure(state=tkinter.DISABLED)
-        self.getButton.configure(state=tkinter.DISABLED)
-        self.setButton.configure(state=tkinter.DISABLED)
+        self.textElem.configure(state=Tkinter.DISABLED)
+        self.getButton.configure(state=Tkinter.DISABLED)
+        self.setButton.configure(state=Tkinter.DISABLED)
 
-class SetThreeValFrame(tkinter.Frame):
+class SetThreeValFrame(Tkinter.Frame):
     
     def __init__(self,container,lambda_factory,content,mac,handle_setThreeVal_set):
         
         # initialize parent class
-        tkinter.Frame.__init__(self,container)
+        Tkinter.Frame.__init__(self,container)
         
         # text 1
         self.textElem1 = dustGuiLib.Text(self,width=6,height=1)
@@ -151,25 +151,24 @@ class SetThreeValFrame(tkinter.Frame):
         self.setButton.grid(row=0,column=3)
     
     def enable(self):
-        self.textElem1.configure(state=tkinter.NORMAL)
-        self.textElem2.configure(state=tkinter.NORMAL)
-        self.textElem3.configure(state=tkinter.NORMAL)
-        self.setButton.configure(state=tkinter.NORMAL)
+        self.textElem1.configure(state=Tkinter.NORMAL)
+        self.textElem2.configure(state=Tkinter.NORMAL)
+        self.textElem3.configure(state=Tkinter.NORMAL)
+        self.setButton.configure(state=Tkinter.NORMAL)
     
-    def update(self, xxx_todo_changeme):
-        (val1,val2,val3) = xxx_todo_changeme
-        self.textElem1.delete(1.0, tkinter.END)
+    def update(self,(val1,val2,val3)):
+        self.textElem1.delete(1.0, Tkinter.END)
         self.textElem1.insert(1.0, str(val1))
-        self.textElem2.delete(1.0, tkinter.END)
+        self.textElem2.delete(1.0, Tkinter.END)
         self.textElem2.insert(1.0, str(val2))
-        self.textElem3.delete(1.0, tkinter.END)
+        self.textElem3.delete(1.0, Tkinter.END)
         self.textElem3.insert(1.0, str(val3))
     
     def disable(self):
-        self.textElem1.configure(state=tkinter.DISABLED)
-        self.textElem2.configure(state=tkinter.DISABLED)
-        self.textElem3.configure(state=tkinter.DISABLED)
-        self.setButton.configure(state=tkinter.DISABLED)
+        self.textElem1.configure(state=Tkinter.DISABLED)
+        self.textElem2.configure(state=Tkinter.DISABLED)
+        self.textElem3.configure(state=Tkinter.DISABLED)
+        self.setButton.configure(state=Tkinter.DISABLED)
 
 class dustFrameMoteList(dustFrame.dustFrame):
     
@@ -200,8 +199,8 @@ class dustFrameMoteList(dustFrame.dustFrame):
     
     def addMote(self,mac,columnvals):
         
-        assert(len(list(columnvals.keys()))==len(self.columnNames))
-        for k in list(columnvals.keys()):
+        assert(len(columnvals.keys())==len(self.columnNames))
+        for k in columnvals.keys():
             assert(k in self.columnNames)
         
         # mote might already be in moteMacs when reconnecting
@@ -235,7 +234,7 @@ class dustFrameMoteList(dustFrame.dustFrame):
                 self.guiElems[row][column].configure(bg=dustStyle.COLOR_PRIMARY2_LIGHT)
             else:
                 self.guiElems[row][column].configure(bg=dustStyle.COLOR_PRIMARY2)
-        except tkinter.TclError:
+        except Tkinter.TclError:
             self.guiElems[row][column].update(valString)
     
     def clearColors(self):
@@ -257,10 +256,10 @@ class dustFrameMoteList(dustFrame.dustFrame):
             for column in range(len(self.guiElems[row])):
                 try:
                     if isActive:
-                        self.guiElems[row][column].configure(state=tkinter.NORMAL)
+                        self.guiElems[row][column].configure(state=Tkinter.NORMAL)
                     else:
-                        self.guiElems[row][column].configure(state=tkinter.DISABLED)
-                except tkinter.TclError:
+                        self.guiElems[row][column].configure(state=Tkinter.DISABLED)
+                except Tkinter.TclError:
                     # happens when not a widget
                     if isActive:
                         self.guiElems[row][column].enable()
@@ -288,7 +287,7 @@ class dustFrameMoteList(dustFrame.dustFrame):
                                      text=str(content),
                                      border=1,
                                      bg=dustStyle.COLOR_BG,
-                                     relief=tkinter.RIDGE,
+                                     relief=Tkinter.RIDGE,
                                      borderwidth=1,
                                      padx=3,
                                      pady=3)
@@ -329,14 +328,14 @@ class dustFrameMoteList(dustFrame.dustFrame):
             
             self._add(temp,len(self.guiElems)-1,
                            len(self.guiElems[-1]),
-                           sticky=tkinter.W+tkinter.E)
+                           sticky=Tkinter.W+Tkinter.E)
             self.guiElems[-1].append(temp)
     
     def _handle_setOneVal_set(self,mac,textField,cb):
         
         # retrieve value from text field
         with self.guiLock:
-            val = textField.get(1.0,tkinter.END)
+            val = textField.get(1.0,Tkinter.END)
         
         # if you get here, value is accepted
         with self.guiLock:
@@ -349,7 +348,7 @@ class dustFrameMoteList(dustFrame.dustFrame):
         
         # retrieve value from text field
         self.guiLock.acquire()
-        valString = textField.get(1.0,tkinter.END)
+        valString = textField.get(1.0,Tkinter.END)
         self.guiLock.release()
         
         # convert to int
@@ -380,15 +379,15 @@ class dustFrameMoteList(dustFrame.dustFrame):
         
         # retrieve value from text fields
         self.guiLock.acquire()
-        valString1 = textField1.get(1.0,tkinter.END)
+        valString1 = textField1.get(1.0,Tkinter.END)
         self.guiLock.release()
 
         self.guiLock.acquire()
-        valString2 = textField2.get(1.0,tkinter.END)
+        valString2 = textField2.get(1.0,Tkinter.END)
         self.guiLock.release()
 
         self.guiLock.acquire()
-        valString3 = textField3.get(1.0,tkinter.END)
+        valString3 = textField3.get(1.0,Tkinter.END)
         self.guiLock.release()
         
         # convert to ints
@@ -618,7 +617,7 @@ class exampleApp(object):
         self.window.mainloop()
     
     def _toggleLedCb(self,mac,button):
-        print(" _buttonCb for mac {0}".format('-'.join(['%.2x'%c for c in mac])))
+        print " _buttonCb for mac {0}".format('-'.join(['%.2x'%c for c in mac]))
         
         if button.cget('text')=='ON':
            button.configure(text="OFF")
@@ -626,34 +625,34 @@ class exampleApp(object):
            button.configure(text="ON")
     
     def _rateCbGet(self,mac):
-        print(" _rateCbGet for mac {0}".format(
+        print " _rateCbGet for mac {0}".format(
                                     '-'.join(['%.2x'%c for c in mac])
-                                ))
+                                )
     
     def _rateCbSet(self,mac,val):
-        print(" _rateCbSet for mac {0}, value={1}".format(
+        print " _rateCbSet for mac {0}, value={1}".format(
                                     '-'.join(['%.2x'%c for c in mac]),
                                     val
-                                ))
+                                )
     def _pkgenCbSet(self,mac,val1,val2,val3):
-        print(" _pkgenCbSet for mac {0}, value1={1} value2={2} value3={3}".format(
+        print " _pkgenCbSet for mac {0}, value1={1} value2={2} value3={3}".format(
                                     '-'.join(['%.2x'%c for c in mac]),
                                     val1,
                                     val2,
                                     val3
-                                ))
+                                )
     
     def _keyCbSet(self,mac,value):
-        print(" _keyCbSet for mac={0} value={1}".format(
+        print " _keyCbSet for mac={0} value={1}".format(
             '-'.join(['%.2x'%c for c in mac]),
             value
-        ))
+        )
     
     def _closeCb(self):
-        print(" _closeCb called")
+        print " _closeCb called"
 
 if __name__ == '__main__':
     import threading
     import random
-    from .dustWindow import dustWindow
+    from dustWindow import dustWindow
     exampleApp()

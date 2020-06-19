@@ -67,10 +67,10 @@ def process_notif(notif):
 
 try:
     # print script name and SmartMesh SDK version
-    print('\nVMgr_PktPerSec (c) Dust Networks')
-    print('SmartMesh SDK {0}\n'.format('.'.join([str(i) for i in sdk_version.VERSION])))
+    print '\nVMgr_PktPerSec (c) Dust Networks'
+    print 'SmartMesh SDK {0}\n'.format('.'.join([str(i) for i in sdk_version.VERSION]))
     
-    mgrhost = input('Enter the IP address of the manager (e.g. {0} ): '.format(DFLT_VMGR_HOST))
+    mgrhost = raw_input('Enter the IP address of the manager (e.g. {0} ): '.format(DFLT_VMGR_HOST))
     if mgrhost == "":
         mgrhost = DFLT_VMGR_HOST
 
@@ -90,12 +90,12 @@ try:
 
     # read and display network configuration
     netConfig = voyager.networkApi.get_network_config()
-    print('\n==== Display current network Configuration')
-    print(netConfig)
+    print '\n==== Display current network Configuration'
+    print netConfig
 
     # start listening for data notifications
-    print('\n==== Subscribe to data notifications and display Average pkt/sec')
-    print('         Ctrl C to stop')
+    print '\n==== Subscribe to data notifications and display Average pkt/sec'
+    print '         Ctrl C to stop'
     voyager.get_notifications('data', notif_callback=process_notif)
 
     # report the number of notifications received
@@ -103,7 +103,7 @@ try:
     while True:
         avg_per_second = (notif_count - previous_count)/30.0
         previous_count = notif_count
-        print((' Total so far = {0} --> Average pkt/sec = {1}'.format(notif_count, avg_per_second)))
+        print(' Total so far = {0} --> Average pkt/sec = {1}'.format(notif_count, avg_per_second))
         time.sleep(30)
 
     voyager.stop_notifications()

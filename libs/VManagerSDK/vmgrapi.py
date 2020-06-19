@@ -2,11 +2,11 @@
 
 '''
 
-from . import vmanager
+import vmanager
 import threading
 import logging
-from .vmanager import notif_client
-import queue
+from vmanager import notif_client
+import Queue
 
 DEFAULT_HOST = '127.0.0.1'
 DEFAULT_PORT = 8888
@@ -39,7 +39,7 @@ class NotifHandler(threading.Thread):
                     break
                 elif self.notif_callback:
                     self.notif_callback(notif_obj)
-            except queue.Empty:
+            except Queue.Empty:
                 pass
         if self.disconnect_callback:
             self.disconnect_callback()

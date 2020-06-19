@@ -26,7 +26,7 @@ try:
     from queue import Queue
 except ImportError:
     # for python2
-    from queue import Queue
+    from Queue import Queue
 
 # import all notifications
 from .models import data_packet_received

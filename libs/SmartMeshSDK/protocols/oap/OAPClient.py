@@ -1,5 +1,5 @@
-from . import OAPMessage
-from . import OAPDispatcher
+import OAPMessage
+import OAPDispatcher
 
 # from muxclient.FilterExpr import FilterExpr
 

@@ -42,12 +42,12 @@ class primeTests(unittest.TestCase):
                     if not rabin_miller(composite, witness):
                         if witness > maxWitness:
                             maxWitness = witness
-                            print('composite, maxWitness',composite,maxWitness)
+                            print 'composite, maxWitness',composite,maxWitness
                         lastPrime = prime
                         break
                 #assert(witness!=primes_1st_50K[-1]),'MR test failed!!!!!!!'
             lastPrime = prime
-        print('last tested',prime)
+        print 'last tested',prime
 
 knownPrimes =     [611693, 611707, 611729, 611753, 611791,
                    611801, 611803, 611827, 611833, 611837,

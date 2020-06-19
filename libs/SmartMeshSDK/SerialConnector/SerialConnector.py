@@ -8,7 +8,7 @@ import socket
 import select
 import time
 
-from . import Hdlc
+import Hdlc
 
 from   SmartMeshSDK.ApiException  import ConnectionError, \
                                          APIError,        \

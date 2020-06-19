@@ -14,7 +14,7 @@ import pickle
 import traceback
 
 if os.name=='nt':       # Windows
-   import winreg as winreg
+   import _winreg as winreg
 elif os.name=='posix':  # Linux
    import glob
 
@@ -52,10 +52,10 @@ def logCrash(threadName,err):
     output += [traceback.format_exc()]
     output  = '\n'.join(output)
     
-    print(output)
+    print output
 
 def reversedict(d):
-    return dict((v,k) for (k,v) in d.items())
+    return dict((v,k) for (k,v) in d.iteritems())
 
 def stringifyMacIpAddresses(indict):
     '''
@@ -98,7 +98,7 @@ def destringifyMacAddresses(d):
     wasDestringified = False
     for name in ['macAddress','source','dest']:
         try:
-            if type(d[name]) in [str,str]:
+            if type(d[name]) in [str,unicode]:
                 d[name] = [int(b,16) for b in d[name].split('-')]
                 wasDestringified = True
         except KeyError:
@@ -375,14 +375,14 @@ class SnapshotThread(threading.Thread):
                             if resp["RC"] != 0:
                                 break
                             # add all "metadata" fields, i.e. every before the list of links
-                            for (k,v) in list(resp.items()):
+                            for (k,v) in resp.items():
                                 if ("_" not in k) and (k not in ['numLinks','idx']):
                                     snapshot['getMoteLinks'][macString][k] = v
                             # populate list of links
                             for i in range(resp['numLinks']):
                                 thisLink = {}
                                 suffix = '_{0}'.format(i+1)
-                                for (k,v) in list(resp.items()):
+                                for (k,v) in resp.items():
                                     if k.endswith(suffix):
                                         name = k[:-len(suffix)]
                                         thisLink[name]   = v
@@ -432,7 +432,7 @@ class SnapshotThread(threading.Thread):
         with self.dataLock:
             returnVal = copy.deepcopy(self.lastsnapshots)
         now = time.time()
-        for m in list(returnVal.keys()):
+        for m in returnVal.keys():
             returnVal[m]['age_seconds'] = int(now-returnVal[m]['epoch_stop'])
         return returnVal
 
@@ -452,7 +452,7 @@ class DeleMgrThread(threading.Thread):
     
     def run(self):
         while True:
-            for (m,c) in list(self.jsonManager.status_GET()['managers'].items()):
+            for (m,c) in self.jsonManager.status_GET()['managers'].items():
                 if c=='disconnected':
                     self.jsonManager.managers_DELETE([m])
             time.sleep(self.HOUSEKEEPING_PERIOD)
@@ -684,12 +684,12 @@ class JsonManager(object):
     
     def motes_GET(self):
         with self.dataLock:
-            returnVal = {m:self._list_motes_per_manager(m) for m in list(self.managerHandlers.keys())}
+            returnVal = {m:self._list_motes_per_manager(m) for m in self.managerHandlers.keys()}
         return returnVal
     
     def oapmotes_GET(self):
         with self.dataLock:
-            return {'oapmotes': list(self.oapClients.keys()),}
+            return {'oapmotes': self.oapClients.keys(),}
     
     def snapshot_POST(self,manager,correlationID=None):
         self.snapshotThread.doSnapshot(manager,correlationID)
@@ -735,7 +735,7 @@ class JsonManager(object):
     #=== close
     
     def close(self):
-        for (k,v) in list(self.managerHandlers.items()):
+        for (k,v) in self.managerHandlers.items():
             try:
                 v.close()
             except:
@@ -751,7 +751,7 @@ class JsonManager(object):
         returnVal = {}
         
         with self.dataLock:
-            for (k,v) in list(self.managerHandlers.items()):
+            for (k,v) in self.managerHandlers.items():
                 if v.isConnected():
                     returnVal[k] = 'connected'
                 else:
@@ -876,7 +876,7 @@ class JsonManager(object):
         # fields
         desc = oapdefs.FIELDS[resource]
         fields = {}
-        for (k,v) in list(tags.items()):
+        for (k,v) in tags.items():
             (n,t,d)               = desc[k]
             if t=='INT8U[16]':
                 fields[n]         = ''.join(["%.2x"%i for i in v])
@@ -897,7 +897,7 @@ class JsonManager(object):
         with self.dataLock:
             if macString not in self.oapClients:
                 # get MACs per manager
-                for (manager,motes) in list(self.motes_GET().items()):
+                for (manager,motes) in self.motes_GET().items():
                     if macString in manager:
                        break
                 # create OAPClient
@@ -939,7 +939,7 @@ class JsonManager(object):
                 if m not in self.managerHandlers:
                     self.managerHandlers[m] = ManagerHandler(m,self._manager_raw_notif_handler)
             # remove
-            for m in list(self.managerHandlers.keys()):
+            for m in self.managerHandlers.keys():
                 if m not in self.config['managers']:
                     self.managerHandlers[m].close()
                     del self.managerHandlers[m]
@@ -1060,7 +1060,7 @@ class JsonManager(object):
     #=== helpers
     
     def _recursive_dict_update(self,d,u):
-        for k, v in list(u.items()):
+        for k, v in u.items():
             if isinstance(v, collections.Mapping):
                 r = self._recursive_dict_update(d.get(k, {}), v)
                 d[k] = r

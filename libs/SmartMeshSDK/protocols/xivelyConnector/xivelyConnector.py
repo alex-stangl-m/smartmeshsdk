@@ -16,7 +16,7 @@ import re
 import time
 import copy
 
-import http.client
+import httplib
 
 from   SmartMeshSDK.utils    import FormatUtils
 
@@ -271,7 +271,7 @@ class xivelySubscriber(threading.Thread):
             output += ['\ncall stack:\n']
             output += [traceback.format_exc()]
             output  = '\n'.join(output)
-            print(output) # critical error
+            print output # critical error
             log.critical(output)
             raise
     
@@ -528,7 +528,7 @@ class xivelyClient(object):
     def _request(self,method,url,body):
         
         # create connection to Xively server
-        connection = http.client.HTTPSConnection(
+        connection = httplib.HTTPSConnection(
             host             = self.XIVELY_HOST,
             timeout          = self.XIVELY_HTTP_TIMEOUT_S,
         )
@@ -550,7 +550,7 @@ class xivelyClient(object):
             if log.isEnabledFor(logging.DEBUG):
                 output            = []
                 output           += ['_request() called with:']
-                for (k,v) in list(args.items()):
+                for (k,v) in args.items():
                     output       += ['- {0:<20}: {1}'.format(k,v)]
                 output            = '\n'.join(output)
                 log.debug(output)
@@ -580,14 +580,14 @@ class xivelyClient(object):
                 log.debug(output)
             
             # raise returned error code
-            if response.status not in [http.client.OK,http.client.CREATED]:
+            if response.status not in [httplib.OK,httplib.CREATED]:
                 output = '{0} {1} response.status={2}'.format(
                     method,
                     url,
                     response.status,
                 )
                 log.error(output)
-                if response.status ==http.client.FORBIDDEN and responseBody['title']=='Rate too fast':
+                if response.status ==httplib.FORBIDDEN and responseBody['title']=='Rate too fast':
                     
                     # update stats
                     self.stats.increment(xivelyStats.HTTP_TX_RATELIMIT)

@@ -59,29 +59,29 @@ def sendapacket(mymac, mydata):
     except:
         print ('\n   ERROR -- Could not send data.\n')
     else:
-        print('\n   Sending packet to {0} \n'.format(mymac))
+        print '\n   Sending packet to {0} \n'.format(mymac)
 
 #============================ main ============================================
 
 try:
     # print banner
-    print('\nVMgr_LEDOnOff (c) Dust Networks')
-    print('SmartMesh SDK {0}\n'.format('.'.join([str(i) for i in sdk_version.VERSION])))
+    print '\nVMgr_LEDOnOff (c) Dust Networks'
+    print 'SmartMesh SDK {0}\n'.format('.'.join([str(i) for i in sdk_version.VERSION]))
 
     # ask the user which Manager IP to connect to, to which mote, and LED ON or OFF
-    mgrhost = input(' Enter the IP address of the manager (e.g. {0} ):'.format(DFLT_VMGR_HOST))
+    mgrhost = raw_input(' Enter the IP address of the manager (e.g. {0} ):'.format(DFLT_VMGR_HOST))
     if mgrhost == "":
         mgrhost = DFLT_VMGR_HOST
     
     # ask the user for mote's MAC address
-    macaddr = input(' Enter MAC address of mote to send to (e.g. {0})\n    or FF-FF-FF-FF-FF-FF-FF-FF for broadast:'.format(DFLT_MOTE_MAC))
+    macaddr = raw_input(' Enter MAC address of mote to send to (e.g. {0})\n    or FF-FF-FF-FF-FF-FF-FF-FF for broadast:'.format(DFLT_MOTE_MAC))
     if macaddr == "":
         macaddr = DFLT_MOTE_MAC
     macaddr = macaddr.upper()       # Make sure all letters are upper case
-    if len(macaddr) != 23:          # Basic error checking
+    if len(macaddr) <> 23:          # Basic error checking
         sys.exit('\n\n Mote Mac address entered is invalid\n')
 
-    userinput = input(' Turn the LED ON or OFF? Default = ON:')
+    userinput = raw_input(' Turn the LED ON or OFF? Default = ON:')
     if userinput == "":
         ledVal = 1
     else:
@@ -117,11 +117,11 @@ try:
         loop = 3
     else:
         loop = 1
-    for x in range(loop):
+    for x in xrange(loop):
         sendapacket(macaddr, oap_msg_b64)
         time.sleep(2)
 
-    print('Script ended normally')
+    print 'Script ended normally'
 
 except:
     traceback.print_exc()

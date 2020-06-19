@@ -55,7 +55,7 @@ def process_data(mydata):
         average = latency_total / notif_count
         if mylatency > latency_max:
             latency_max = mylatency
-        print((' Mote {0} --> Latency {1} -- Average {2} -- Max {3}\n'.format(mydata.mac_address, mylatency, average, latency_max)))
+        print(' Mote {0} --> Latency {1} -- Average {2} -- Max {3}\n'.format(mydata.mac_address, mylatency, average, latency_max))
 
 def process_notif(notif):
     '''
@@ -93,16 +93,16 @@ def process_notif(notif):
 
 try:
     # print banner
-    print('\nVMgr_LatencyMote (c) Dust Networks')
-    print('SmartMesh SDK {0}\n'.format('.'.join([str(i) for i in sdk_version.VERSION])))
+    print '\nVMgr_LatencyMote (c) Dust Networks'
+    print 'SmartMesh SDK {0}\n'.format('.'.join([str(i) for i in sdk_version.VERSION]))
 
     # ask the user for VManager host
-    mgrhost = input('Enter the IP address of the manager (e.g. {0} ): '.format(DFLT_VMGR_HOST))
+    mgrhost = raw_input('Enter the IP address of the manager (e.g. {0} ): '.format(DFLT_VMGR_HOST))
     if mgrhost == "":
         mgrhost = DFLT_VMGR_HOST
 
     # ask the user for mote's MAC address
-    macaddr = input('Enter MAC address of mote to Ping (e.g. {0}): '.format(DFLT_MOTE_MAC))
+    macaddr = raw_input('Enter MAC address of mote to Ping (e.g. {0}): '.format(DFLT_MOTE_MAC))
     if macaddr == "":
         macaddr = DFLT_MOTE_MAC
     macaddr = macaddr.upper() # make sure all letters are upper case
@@ -124,11 +124,11 @@ try:
     # Start listening for data notifications
     voyager.get_notifications('data', notif_callback=process_notif)
 
-    print('\n==== Subscribing to data notifications')
-    reply = input ('\n Waiting for notifications from mote, Press any key to stop\n')
+    print '\n==== Subscribing to data notifications'
+    reply = raw_input ('\n Waiting for notifications from mote, Press any key to stop\n')
 
     voyager.stop_notifications()
-    print('Script ended normally')
+    print 'Script ended normally'
 
 except:
     traceback.print_exc()

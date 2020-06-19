@@ -1,6 +1,6 @@
 try:
-   from . import IpMoteConnectorClib
+   import IpMoteConnectorClib
    IpMoteConnector = IpMoteConnectorClib
-   print('Note: using the C implementation of the IpMoteConnector connector')
+   print 'Note: using the C implementation of the IpMoteConnector connector'
 except ImportError:
-   from . import IpMoteConnector
+   import IpMoteConnector

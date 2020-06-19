@@ -206,17 +206,17 @@ class JsonServer(object):
                 args[0](**kwargs) # blocking
             except socket.error as err:
                 if err[0]==10013:
-                    print('FATAL: cannot open TCP port {0}.'.format(kwargs['port']))
-                    print('    Is another application running on that port?')
+                    print 'FATAL: cannot open TCP port {0}.'.format(kwargs['port'])
+                    print '    Is another application running on that port?'
                 else:
-                    print(logError(err))
+                    print logError(err)
             except Exception as err:
-                print(logError(err))
-            print('    Trying again in {0} seconds'.format(RETRY_PERIOD), end=' ')
+                print logError(err)
+            print '    Trying again in {0} seconds'.format(RETRY_PERIOD),
             for _ in range(RETRY_PERIOD):
                 time.sleep(1)
-                print('.', end=' ')
-            print('')
+                print '.',
+            print ''
     
     #======================== CLI handlers ====================================
     
@@ -225,7 +225,7 @@ class JsonServer(object):
         self.jsonManager.close()
         
         time.sleep(.3)
-        print("bye bye.")
+        print "bye bye."
     
     def _clihandle_status(self,params):
         pp.pprint(self.jsonManager.status_GET())
@@ -469,7 +469,7 @@ class JsonServer(object):
         except requests.exceptions.ConnectionError:
             pass
         except Exception as err:
-            print(err)
+            print err
     
 #============================ main ============================================
 

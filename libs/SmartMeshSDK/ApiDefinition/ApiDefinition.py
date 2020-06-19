@@ -77,36 +77,36 @@ class Field(object):
     def isValidValue(self,val):
         # check format and length
         if   self.format==FieldFormats.STRING:
-            if ( (type(val) not in [bytes,str]) or
+            if ( (type(val) not in [types.StringType,types.UnicodeType]) or
                  len(val)>self.length
                ):
                 return False
         elif self.format==FieldFormats.BOOL:
-            if type(val)!=bool:
+            if type(val)!=types.BooleanType:
                 return False
         elif self.format==FieldFormats.INT:
-            if ( (type(val)!=int and  type(val)!=int)  or
+            if ( (type(val)!=types.IntType and  type(val)!=types.LongType)  or
                  val>pow(2,8*self.length)
                ):
                 return False
         elif self.format==FieldFormats.INTS:
-            if ( (type(val)!=int and  type(val)!=int)  or
+            if ( (type(val)!=types.IntType and  type(val)!=types.LongType)  or
                  val>(pow(2,8*self.length)/2) or
                  val<(-pow(2,8*self.length)/2)
                ):
                 return False
         elif self.format==FieldFormats.HEXDATA:
-            if type(val)!=list and type(val)!=tuple:
+            if type(val)!=types.ListType and type(val)!=types.TupleType:
                 return False
             if self.length and len(val)>self.length:
                 return False
             for i in val:
-                if type(i)!=int:
+                if type(i)!=types.IntType:
                     return False
                 if i>=pow(2,8):
                     return False
         elif self.format==FieldFormats.FLOAT:
-            if ( (type(val)!=int and type(val)!=float) ):
+            if ( (type(val)!=types.IntType and type(val)!=types.FloatType) ):
                 return False
         else:
             raise SystemError('unknown field format='+self.format)
@@ -456,7 +456,7 @@ class ApiDefinition(object):
             raise CommandError(CommandError.NO_RESPONSE,
                                             '.'.join(nameArray))
         
-        keys          = list(commandDef['response'].keys())
+        keys          = commandDef['response'].keys()
         responseName  = keys[0]
         
         fields = [Field(fieldRaw,self.fieldOptions)
@@ -541,7 +541,7 @@ class ApiDefinition(object):
         namesCommand.sort()
         
         # list of field names in the passed fields
-        namesPassed     = list(fieldsPassed.keys())
+        namesPassed     = fieldsPassed.keys()
         namesPassed.sort()
         
         if   len(namesPassed)<len(namesCommand):
@@ -607,7 +607,7 @@ class ApiDefinition(object):
         
         # step 2. for each field, make sure formatting is correct
         #         (raises errors if not)
-        for fieldName,fieldValue in list(fields.items()):
+        for fieldName,fieldValue in fields.items():
             self.isValidFieldFormatting(commandArray,
                                         fieldName,
                                         fieldValue)

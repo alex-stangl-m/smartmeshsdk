@@ -1,6 +1,6 @@
 import os
 import time
-import urllib.request, urllib.parse, urllib.error
+import urllib
 
 LOG_FORMAT_TIMESTAMP = '%Y/%m/%d %H:%M:%S'
 
@@ -54,16 +54,16 @@ def formatNamedTuple(tup):
 
 def formatDictionnary(dict):
     output         = []
-    for (k,v) in list(dict.items()):
+    for (k,v) in dict.items():
         output    += ['{0:>20}: {1}'.format(k,v)]
     output         = '\n'.join(output)
     return output
 
 def quote(string):
-    return urllib.parse.quote(string, '')
+    return urllib.quote(string, '')
 
 def unquote(string):
-    return urllib.parse.unquote(string)
+    return urllib.unquote(string)
 
 def formatConnectionParams(connectionParams):
     if   isinstance(connectionParams,str):

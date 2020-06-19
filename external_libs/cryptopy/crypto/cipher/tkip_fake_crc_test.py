@@ -42,22 +42,22 @@ class TKIP_tkip_fake_crc_test(unittest.TestCase):
 		maskedCt	 = xor(bitMask,ctData)
 		maskedCtCrc  = crc32(maskedCt)
 
-		print("--------------- make a modified packet and MIC ------------")
-		print("plainText = %s "  % b2a_hex(plainText))
-		print("cipherText= %s "  % b2a_hex(cipherText))
-		print("ctData	 = %s "  % b2a_hex(ctData))
-		print("ctxtCrc	 = %s "  % b2a_hex(ctCrcEncrypted))
-		print("base 	 = %s " % b2a_hex(base))
-		print("baseCrc	 = %0X" % baseCrc)
-		print("mask 	 = %s " % b2a_hex(bitMask))
-		print("maskCrc	 = %0X" % maskCrc)
-		print("maskedCt = %s " % b2a_hex(maskedCt))
-		print("maskCtCrc= %0X" % maskedCtCrc)
+		print "--------------- make a modified packet and MIC ------------"
+		print "plainText = %s "  % b2a_hex(plainText)
+		print "cipherText= %s "  % b2a_hex(cipherText)
+		print "ctData	 = %s "  % b2a_hex(ctData)
+		print "ctxtCrc	 = %s "  % b2a_hex(ctCrcEncrypted)
+		print "base 	 = %s " % b2a_hex(base)
+		print "baseCrc	 = %0X" % baseCrc
+		print "mask 	 = %s " % b2a_hex(bitMask)
+		print "maskCrc	 = %0X" % maskCrc
+		print "maskedCt = %s " % b2a_hex(maskedCt)
+		print "maskCtCrc= %0X" % maskedCtCrc
 		maskDiff = maskCrc ^ baseCrc
 		newCtCrc = pack('<I', (maskDiff ^ unpack('<I',ctCrcEncrypted)[0]) )
 		newCt = ctHeader + maskedCt + newCtCrc
 		newPt = alg.decrypt(newCt)	 # this will raise an exception if the crc is 'bad'!
-		print("newPt	 = %s " % b2a_hex(newPt))
+		print "newPt	 = %s " % b2a_hex(newPt)
 
 	def test_TKIP_MIC_Analysis(self):
 		""" Simple analysis of TKIP CRC attacks based on
@@ -69,17 +69,17 @@ class TKIP_tkip_fake_crc_test(unittest.TestCase):
 		secondsPerYear = 365.*secondsPerDay
 		attacksPerSecond = 1.
 		attacksPerYear	 = attacksPerSecond * secondsPerYear
-		print("\n\n----  Michael Attack Analysis w/wo Countermeasures  ----")
-		print("%s"%"Attacks  Number   Counter	 Mean")
-		print("%s"%"  per	   of	  Measure	Success")
-		print("%s"%"Second	  STAs	   Type 	 Time")
-		print("------------------------------------")
-		print("   1	   1	   none 	 %3d days" % (michaelStrength/secondsPerDay/attacksPerSecond))
+		print "\n\n----  Michael Attack Analysis w/wo Countermeasures  ----"
+		print "%s"%"Attacks  Number   Counter	 Mean"
+		print "%s"%"  per	   of	  Measure	Success"
+		print "%s"%"Second	  STAs	   Type 	 Time"
+		print	   "------------------------------------"
+		print	   "   1	   1	   none 	 %3d days" % (michaelStrength/secondsPerDay/attacksPerSecond)
 		attacksPerSecond = 100
-		print(" 100	   1	   none 	 %3d hours" % (michaelStrength/secondsPerHour/attacksPerSecond))
-		print(" .016	   1  60sec/session 	 %3d year" % (michaelStrength/secondsPerYear/(1/60.)))
-		print(" 100/60   100 60sec/session 	 %3d days" % (michaelStrength/secondsPerDay/(100./60.) ))
-		print(" 100	   1	   none 	 %3d hours" % (michaelStrength/secondsPerHour/attacksPerSecond))
+		print	   " 100	   1	   none 	 %3d hours" % (michaelStrength/secondsPerHour/attacksPerSecond)
+		print	   " .016	   1  60sec/session 	 %3d year" % (michaelStrength/secondsPerYear/(1/60.))
+		print	   " 100/60   100 60sec/session 	 %3d days" % (michaelStrength/secondsPerDay/(100./60.) )
+		print	   " 100	   1	   none 	 %3d hours" % (michaelStrength/secondsPerHour/attacksPerSecond)
 
 
 

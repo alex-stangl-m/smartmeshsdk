@@ -10,12 +10,12 @@ if __name__ == '__main__':
 
 #============================ imports =========================================
 
-import tkinter
+import Tkinter
 import time
 
-from . import dustGuiLib
-from . import dustFrame
-from   .dustStyle import dustStyle
+import dustGuiLib
+import dustFrame
+from   dustStyle import dustStyle
 
 #============================ body ============================================
 
@@ -29,11 +29,11 @@ class dustFrameSensorData(dustFrame.dustFrame):
         dustFrame.dustFrame.__init__(self,parentElem,guiLock,frameName,row,column)
         
         #row 0: slide
-        self.slide = tkinter.Scale(self.container,
+        self.slide = Tkinter.Scale(self.container,
                                    from_=0,
                                    to=0xffff,
-                                   state=tkinter.DISABLED,
-                                   orient=tkinter.HORIZONTAL)
+                                   state=Tkinter.DISABLED,
+                                   orient=Tkinter.HORIZONTAL)
         self._add(self.slide,0,0,columnspan=2)
         
         #row 1: sourceMac
@@ -67,9 +67,9 @@ class dustFrameSensorData(dustFrame.dustFrame):
         # slide
         if len(sensorData['payload'])==2:
             temp = sensorData['payload'][0]*256+sensorData['payload'][1]
-            self.slide.config(state=tkinter.NORMAL)
+            self.slide.config(state=Tkinter.NORMAL)
             self.slide.set(temp)
-            self.slide.config(state=tkinter.DISABLED)
+            self.slide.config(state=Tkinter.DISABLED)
         
         # sourceMac
         if len(sensorData['payload'])==2:
@@ -112,9 +112,9 @@ class exampleApp(object):
         self.window.mainloop()
     
     def _closeCb(self):
-        print(" _closeCb called")
+        print " _closeCb called"
 
 if __name__ == '__main__':
     import threading
-    from .dustWindow import dustWindow
+    from dustWindow import dustWindow
     exampleApp()

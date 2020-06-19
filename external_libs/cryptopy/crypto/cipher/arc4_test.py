@@ -18,7 +18,7 @@ class ARC4_TestVectors(unittest.TestCase):
         """ Test using vectors from..."""
         def ARC4testVector(testCase,plainText,key,cipherText):
             """ Process ARC4 test vectors from RFCxxxx"""
-            print('%s %s %s'%('='*((54-len(testCase))/2),testCase,'='*((54-len(testCase))/2)))
+            print '%s %s %s'%('='*((54-len(testCase))/2),testCase,'='*((54-len(testCase))/2))
             # Convert from octet lists to string
             pt  = ''.join([chr(i) for i in plainText])
             key = ''.join([chr(i) for i in key])
@@ -26,12 +26,12 @@ class ARC4_TestVectors(unittest.TestCase):
 
             alg = ARC4(key)
 
-            print('key:    %s'%b2a_p(key)[9:])
-            print('pt:     %s'%b2a_p(pt)[9:])
+            print 'key:    %s'%b2a_p(key)[9:]
+            print 'pt:     %s'%b2a_p(pt)[9:]
             ct  = alg.encrypt(pt)
-            print('ct:     %s'%b2a_p(ct)[9:])
-            print('kct:    %s'%b2a_p(kct)[9:])
-            print('========================================================')
+            print 'ct:     %s'%b2a_p(ct)[9:]
+            print 'kct:    %s'%b2a_p(kct)[9:]
+            print '========================================================'
             self.assertEqual( ct, kct )
             alg.setKey(key)
             dct = alg.decrypt( ct )

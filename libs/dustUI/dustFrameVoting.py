@@ -10,13 +10,13 @@ if __name__ == '__main__':
 
 #============================ imports =========================================
 
-import tkinter
-import tkinter.font
+import Tkinter
+import tkFont
 import threading
 
-from . import dustGuiLib
-from . import dustFrame
-from   .dustStyle             import dustStyle
+import dustGuiLib
+import dustFrame
+from   dustStyle             import dustStyle
 from   SmartMeshSDK.utils    import FormatUtils
 
 #============================ defines =========================================
@@ -71,10 +71,10 @@ class dustFrameVoting(dustFrame.dustFrame):
         dustFrame.dustFrame.__init__(self,parentElem,guiLock,frameName,row,column)
         
         #===== header row
-        self.headerRow      = tkinter.Frame(self.container)
-        self._add(self.headerRow,0,0,sticky=tkinter.E)
+        self.headerRow      = Tkinter.Frame(self.container)
+        self._add(self.headerRow,0,0,sticky=Tkinter.E)
         
-        self.buttonNextQuestion   = tkinter.Button(
+        self.buttonNextQuestion   = Tkinter.Button(
             self.headerRow,
             text             = 'next question',
             command          = self._nextQuestion,
@@ -84,17 +84,17 @@ class dustFrameVoting(dustFrame.dustFrame):
             column           = 0,
         )
         
-        temp = tkinter.Label(self.headerRow,text='presenter mote:')
+        temp = Tkinter.Label(self.headerRow,text='presenter mote:')
         temp.grid(
             row              = 0,
             column           = 2,
         )
         
         self.networkMotes    = (self._getInitPresenterMote(),)
-        self.presenterMote   = tkinter.StringVar(self.container)
+        self.presenterMote   = Tkinter.StringVar(self.container)
         self.presenterMote.trace('w',self._presenterChanged)
         self.presenterMote.set(self.networkMotes[0])
-        self.moteDropDown    = tkinter.OptionMenu(
+        self.moteDropDown    = Tkinter.OptionMenu(
             self.headerRow,
             self.presenterMote,
             *self.networkMotes
@@ -104,7 +104,7 @@ class dustFrameVoting(dustFrame.dustFrame):
             column           = 3,
         )
         
-        self.buttonScan = tkinter.Button(
+        self.buttonScan = Tkinter.Button(
             self.headerRow,
             text             = 'scan',
             command          = self._scan,
@@ -115,7 +115,7 @@ class dustFrameVoting(dustFrame.dustFrame):
         )
         
         #===== canvas
-        self.canvas = tkinter.Canvas(
+        self.canvas = Tkinter.Canvas(
             self.container,
             width            = self.WIDTH,
             height           = self.HEIGHT,
@@ -172,7 +172,7 @@ class dustFrameVoting(dustFrame.dustFrame):
             (x,y)  = self._barValPosition(b,val)
             self.canvas.coords(self.barVal[b],x,y)
             if self.PERCENTAGE:
-                valSum       = sum([v for (k,v) in list(newData['numVotes'].items())])
+                valSum       = sum([v for (k,v) in newData['numVotes'].items()])
                 if valSum>0:
                     val      = int(round(100*float(val)/float(valSum)))
                 else:
@@ -225,7 +225,7 @@ class dustFrameVoting(dustFrame.dustFrame):
             for mote in self.networkMotes :
                 self.moteDropDown['menu'].add_command(
                     label=mote, 
-                    command=tkinter._setit(
+                    command=Tkinter._setit(
                         self.presenterMote,
                         mote,
                     )
@@ -234,7 +234,7 @@ class dustFrameVoting(dustFrame.dustFrame):
             # load option to select none
             self.moteDropDown['menu'].add_command(
                 label=self.PRESENTERMOTE_DFLT, 
-                command=tkinter._setit(
+                command=Tkinter._setit(
                     self.presenterMote,
                     self.PRESENTERMOTE_DFLT,
                 )
@@ -353,13 +353,13 @@ class exampleApp(object):
         self.window.mainloop()
     
     def _nextQuestionCb(self):
-        print('next question clicked!')
+        print 'next question clicked!'
     
     def _presenterChangedCb(self,newPresenter):
-        print('changed presenter to {0}!'.format(newPresenter))
+        print 'changed presenter to {0}!'.format(newPresenter)
     
     def _scanCb(self):
-        print('scan clicked!')
+        print 'scan clicked!'
     
     def _updateData(self):
         
@@ -368,7 +368,7 @@ class exampleApp(object):
         # load data
         motes = self._randomMotes()
         newData = {
-            'questionNum':        random.choice(list(range(0,500,49))),
+            'questionNum':        random.choice(range(0,500,49)),
             'numVotes': {
                 'A':              random.randint(0,100),
                 'B':              random.randint(0,100),
@@ -382,7 +382,7 @@ class exampleApp(object):
                 'D':              motes[3],
             },
         }
-        newData['firstMAC'] =     random.choice([v for (k,v) in list(newData['firstMACs'].items())])
+        newData['firstMAC'] =     random.choice([v for (k,v) in newData['firstMACs'].items()])
         self.frameVoting.loadData(newData)
         
         # load motes
@@ -402,5 +402,5 @@ class exampleApp(object):
 
 if __name__ == '__main__':
     import random
-    from .dustWindow import dustWindow
+    from dustWindow import dustWindow
     exampleApp()

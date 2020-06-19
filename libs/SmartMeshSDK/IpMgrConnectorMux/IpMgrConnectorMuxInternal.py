@@ -3,7 +3,7 @@ import socket
 import select
 import struct
 
-from . import MuxMsg
+import MuxMsg
 
 from   SmartMeshSDK import ApiException,                   \
                            ApiConnector
@@ -116,7 +116,7 @@ class IpMgrConnectorMuxInternal(ApiConnector.ApiConnector ) :
             self.ackCmdId = -1
             try :
                 self.socket.sendall(packet)
-            except socket.error as way:
+            except socket.error, way:
                 # Socket error. Disconnect from device. Stop command processing
                 reason = "IO output error [{0}] {1}".format(way.args[0], way.args[1])
                 self.disconnect(reason)
@@ -188,7 +188,7 @@ class IpMgrConnectorMuxInternal(ApiConnector.ApiConnector ) :
                 if not buf :
                     raise socket.error(0, "Connection close")
                 self.muxMsg.parse(buf)
-        except socket.error as way:
+        except socket.error, way:
             # Disconnect process -------------------------------------------------
             if way.args[0] == 9 :   # 
                 way = socket.error(0, "Connection close")
